@@ -2,6 +2,7 @@
 # WordCount-Using-MapReduce-Hadoop
 
 This repository is designed to test MapReduce jobs using a simple word count dataset.
+Objective of this project is to implement a word count application using Hadoop's MapReduce framework. The job will read an input file and it will count the occurrences of each word, and write the output to HDFS (Hadoop Distributed File System).
 
 ## Objectives
 
@@ -116,3 +117,35 @@ To copy the output from HDFS to your local machine:
     docker cp resourcemanager:/opt/hadoop-3.2.1/share/hadoop/mapreduce/output/ shared-folder/output/
     ```
 3. Commit and push to your repo so that we can able to see your output
+
+### Approach and Implementation:
+#### Mapper Logic
+The `WordMapper` class splits each line of text into words. The mapper takes each word and emits a key-value pair where the key is the word and the value is 1 (representing the occurrence of that word). 
+
+
+#### Reducer Logic
+The `WordReducer` class also implements the Node interface. This class will aggregate the counts for each word by summing them. It prints out the word, along with the total count.
+
+### Challenges Faced & Solutions
+a)Import Issues:
+Got ClassNotFoundException for Hadoop classes error.Fixed the issue with correct imports in each class
+
+
+b)Duplicate Word Counts:
+The output showed separate entries for same words instead of combining counts. So, I fixed issue by properly implementing reducer logic to sum values for each word key.
+
+### Sample Input and Output
+
+Input:
+```bash
+   Apache Hadoop
+   Apache Hadoop MapReduce 
+   ```
+Output:
+```bash
+   Apache     2
+   Hadoop     2
+   MapReduce  1
+   ```
+This shows number of occurences for each word from input.
+
